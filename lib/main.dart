@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const HomeView(),
+    return const MaterialApp(
+      home: HomeView(),
       debugShowCheckedModeBanner: false,
     );
   }
