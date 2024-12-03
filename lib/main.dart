@@ -18,8 +18,10 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<HomeProvider>(context);
     return MaterialApp(
-      home: HomeView(),
+      home: const HomeView(),
+      theme: provider.theme,
       debugShowCheckedModeBanner: false,
     );
   }
