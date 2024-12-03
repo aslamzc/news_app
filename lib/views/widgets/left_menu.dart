@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:news/providers/home_provider.dart';
+import 'package:news/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class LeftMenu extends StatelessWidget {
   const LeftMenu({super.key});
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<HomeProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Drawer(
       child: ListView(children: [
@@ -25,7 +25,7 @@ class LeftMenu extends StatelessWidget {
           value: Theme.of(context).brightness == Brightness.dark,
           activeColor: const Color.fromRGBO(166, 174, 191, 1),
           onChanged: (value) {
-            provider.toggleTheme();
+            themeProvider.toggleTheme();
             Navigator.pop(context);
           },
         ),
