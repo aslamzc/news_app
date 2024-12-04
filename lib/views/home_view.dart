@@ -143,12 +143,10 @@ class HomeView extends StatelessWidget {
                   width: double.infinity,
                   child: Column(
                     children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _controller,
-                          decoration: const InputDecoration(
-                            labelText: 'Search',
-                          ),
+                      TextField(
+                        controller: _controller,
+                        decoration: const InputDecoration(
+                          labelText: 'Search',
                         ),
                       ),
                       SizedBox(
@@ -160,7 +158,10 @@ class HomeView extends StatelessWidget {
                           value: 'General',
                           icon: const Icon(Icons.category),
                           iconSize: 24,
-                          style: const TextStyle(color: Colors.deepPurple),
+                          style: TextStyle(
+                              color: themeProvider.isDarkTheme
+                                  ? Colors.white
+                                  : Colors.black),
                           onChanged: (String? newValue) {},
                           items: <String>['Health', 'Sports', 'General']
                               .map<DropdownMenuItem<String>>((String value) {
@@ -180,7 +181,10 @@ class HomeView extends StatelessWidget {
                           value: 'Popularity',
                           icon: const Icon(Icons.sort),
                           iconSize: 24,
-                          style: const TextStyle(color: Colors.deepPurple),
+                          style: TextStyle(
+                              color: themeProvider.isDarkTheme
+                                  ? Colors.white
+                                  : Colors.black),
                           onChanged: (String? newValue) {},
                           items: <String>[
                             'Health',
