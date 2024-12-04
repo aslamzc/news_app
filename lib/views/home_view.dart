@@ -137,147 +137,151 @@ class HomeView extends StatelessWidget {
             builder: (context) {
               final TextEditingController _controller =
                   TextEditingController(text: newsProvider.keyword);
-              return Padding(
-                padding: const EdgeInsets.all(16),
-                child: SizedBox(
-                  height: 450,
-                  width: double.infinity,
-                  child: Column(
-                    children: [
-                      const Text(
-                        'Filter',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Roboto',
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      TextField(
-                        controller: _controller,
-                        onChanged: (value) {
-                          newsProvider.setKeyword(value);
-                        },
-                        decoration: InputDecoration(
-                          labelText: 'Search',
-                          prefixIcon: const Icon(Icons.search),
-                          suffixIcon: IconButton(
-                            icon: const Icon(Icons.clear),
-                            onPressed: () {
-                              _controller.clear();
-                              newsProvider.setKeyword('');
-                            },
+              return Consumer<NewsProvider>(
+                builder: (context, newsProvider, child) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: SizedBox(
+                      height: 450,
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          const Text(
+                            'Filter',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Roboto',
+                            ),
                           ),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      SizedBox(
-                        width: double.infinity,
-                        child: DropdownButtonFormField<String>(
-                          decoration: InputDecoration(
-                            labelText: 'Category',
-                            prefixIcon: const Icon(Icons.category),
-                            suffixIcon: IconButton(
-                              icon: const Icon(Icons.clear),
+                          const SizedBox(height: 8),
+                          TextField(
+                            controller: _controller,
+                            onChanged: (value) {
+                              newsProvider.setKeyword(value);
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Search',
+                              prefixIcon: const Icon(Icons.search),
+                              suffixIcon: IconButton(
+                                icon: const Icon(Icons.clear),
+                                onPressed: () {
+                                  _controller.clear();
+                                  newsProvider.setKeyword('');
+                                },
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          SizedBox(
+                            width: double.infinity,
+                            child: DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                labelText: 'Category',
+                                prefixIcon: const Icon(Icons.category),
+                                suffixIcon: IconButton(
+                                  icon: const Icon(Icons.clear),
+                                  onPressed: () {
+                                    newsProvider.setCategory(null);
+                                  },
+                                ),
+                              ),
+                              value: newsProvider.category,
+                              style: TextStyle(
+                                  color: themeProvider.isDarkTheme
+                                      ? Colors.white
+                                      : Colors.black),
+                              onChanged: (String? newValue) {
+                                newsProvider.setCategory(newValue);
+                              },
+                              items: <String>[
+                                'general',
+                                'business',
+                                'entertainment',
+                                'health',
+                                'science',
+                                'sports',
+                                'technology'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                          // const SizedBox(height: 16),
+                          // SizedBox(
+                          //   width: double.infinity,
+                          //   child: DropdownButtonFormField<String>(
+                          //     decoration: const InputDecoration(
+                          //       labelText: 'Sort By',
+                          //       prefixIcon: Icon(Icons.sort),
+                          //     ),
+                          //     value: 'popularity',
+                          //     style: TextStyle(
+                          //         color: themeProvider.isDarkTheme
+                          //             ? Colors.white
+                          //             : Colors.black),
+                          //     onChanged: (String? newValue) {
+                          //       newsProvider.setSortBy(newValue);
+                          //     },
+                          //     items: <String>[
+                          //       'popularity',
+                          //       'relevancy',
+                          //       'publishedAt',
+                          //     ].map<DropdownMenuItem<String>>((String value) {
+                          //       return DropdownMenuItem<String>(
+                          //         value: value,
+                          //         child: Text(value),
+                          //       );
+                          //     }).toList(),
+                          //   ),
+                          // ),
+                          const SizedBox(height: 16),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
                               onPressed: () {
-                                newsProvider.setCategory(null);
+                                newsProvider.fetchNews();
+                                Navigator.of(context).pop();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                side: BorderSide(
+                                  width: 1.0,
+                                  color: themeProvider.isDarkTheme
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              ),
+                              child: Text(
+                                'Apply',
+                                style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    color: themeProvider.isDarkTheme
+                                        ? Colors.white
+                                        : Colors.black),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          Center(
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.close_rounded,
+                                color: themeProvider.isDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
                               },
                             ),
                           ),
-                          value: newsProvider.category,
-                          style: TextStyle(
-                              color: themeProvider.isDarkTheme
-                                  ? Colors.white
-                                  : Colors.black),
-                          onChanged: (String? newValue) {
-                            newsProvider.setCategory(newValue);
-                          },
-                          items: <String>[
-                            'general',
-                            'business',
-                            'entertainment',
-                            'health',
-                            'science',
-                            'sports',
-                            'technology'
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
+                        ],
                       ),
-                      // const SizedBox(height: 16),
-                      // SizedBox(
-                      //   width: double.infinity,
-                      //   child: DropdownButtonFormField<String>(
-                      //     decoration: const InputDecoration(
-                      //       labelText: 'Sort By',
-                      //       prefixIcon: Icon(Icons.sort),
-                      //     ),
-                      //     value: 'popularity',
-                      //     style: TextStyle(
-                      //         color: themeProvider.isDarkTheme
-                      //             ? Colors.white
-                      //             : Colors.black),
-                      //     onChanged: (String? newValue) {
-                      //       newsProvider.setSortBy(newValue);
-                      //     },
-                      //     items: <String>[
-                      //       'popularity',
-                      //       'relevancy',
-                      //       'publishedAt',
-                      //     ].map<DropdownMenuItem<String>>((String value) {
-                      //       return DropdownMenuItem<String>(
-                      //         value: value,
-                      //         child: Text(value),
-                      //       );
-                      //     }).toList(),
-                      //   ),
-                      // ),
-                      const SizedBox(height: 16),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            newsProvider.fetchNews();
-                            Navigator.of(context).pop();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            side: BorderSide(
-                              width: 1.0,
-                              color: themeProvider.isDarkTheme
-                                  ? Colors.white
-                                  : Colors.black,
-                            ),
-                          ),
-                          child: Text(
-                            'Apply',
-                            style: TextStyle(
-                                fontFamily: 'Roboto',
-                                color: themeProvider.isDarkTheme
-                                    ? Colors.white
-                                    : Colors.black),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      Center(
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.close_rounded,
-                            color: themeProvider.isDarkTheme
-                                ? Colors.white
-                                : Colors.black,
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               );
             },
           );
