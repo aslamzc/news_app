@@ -156,7 +156,6 @@ class HomeView extends StatelessWidget {
                         child: DropdownButtonFormField<String>(
                           decoration: const InputDecoration(
                             labelText: 'Category',
-                            // border: OutlineInputBorder(),
                           ),
                           value: 'General',
                           icon: const Icon(Icons.category),
@@ -170,6 +169,37 @@ class HomeView extends StatelessWidget {
                               child: Text(value),
                             );
                           }).toList(),
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: DropdownButtonFormField<String>(
+                          decoration: const InputDecoration(
+                            labelText: 'Sort By',
+                          ),
+                          value: 'Popularity',
+                          icon: const Icon(Icons.sort),
+                          iconSize: 24,
+                          style: const TextStyle(color: Colors.deepPurple),
+                          onChanged: (String? newValue) {},
+                          items: <String>[
+                            'Health',
+                            'Sports',
+                            'General',
+                            'Popularity'
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Text('Filter'),
                         ),
                       ),
                     ],
