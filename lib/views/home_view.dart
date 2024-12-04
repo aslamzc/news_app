@@ -129,6 +129,58 @@ class HomeView extends StatelessWidget {
                     },
                   ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) {
+              final TextEditingController _controller = TextEditingController();
+              return Padding(
+                padding: const EdgeInsets.all(16),
+                child: SizedBox(
+                  height: 400,
+                  width: double.infinity,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _controller,
+                          decoration: const InputDecoration(
+                            labelText: 'Search',
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: DropdownButtonFormField<String>(
+                          decoration: const InputDecoration(
+                            labelText: 'Category',
+                            // border: OutlineInputBorder(),
+                          ),
+                          value: 'General',
+                          icon: const Icon(Icons.category),
+                          iconSize: 24,
+                          style: const TextStyle(color: Colors.deepPurple),
+                          onChanged: (String? newValue) {},
+                          items: <String>['Health', 'Sports', 'General']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
+        child: const Icon(Icons.filter_list),
+      ),
     );
   }
 }
