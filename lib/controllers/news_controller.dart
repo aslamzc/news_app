@@ -2,7 +2,7 @@ import 'package:news/models/news.dart';
 import 'package:news/services/api_service.dart';
 import 'package:logger/logger.dart';
 
-class HomeController {
+class NewsController {
   final Logger _logger = Logger();
   Future<List<News>> fetchNews() async {
     try {
@@ -11,7 +11,7 @@ class HomeController {
           .map((article) => News.fromJson(article))
           .toList();
     } catch (e) {
-       _logger.e('Error fetching news: $e');
+      _logger.e('Error fetching news: $e');
       return [];
     }
   }

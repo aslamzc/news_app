@@ -7,7 +7,7 @@ class HomeView extends StatelessWidget {
   const HomeView({super.key});
   @override
   Widget build(BuildContext context) {
-    final homeProvider = Provider.of<NewsProvider>(context);
+    final newsProvider = Provider.of<NewsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -21,14 +21,14 @@ class HomeView extends StatelessWidget {
         centerTitle: true,
       ),
       drawer: const LeftMenu(),
-      body: homeProvider.isLoading
+      body: newsProvider.isLoading
           ? const Center(child: CircularProgressIndicator())
-          : homeProvider.error != null
-              ? Center(child: Text('Error: ${homeProvider.error}'))
+          : newsProvider.error != null
+              ? Center(child: Text('Error: ${newsProvider.error}'))
               : ListView.builder(
-                  itemCount: homeProvider.news.length,
+                  itemCount: newsProvider.news.length,
                   itemBuilder: (context, index) {
-                    final news = homeProvider.news[index];
+                    final news = newsProvider.news[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 8.0),
@@ -69,7 +69,7 @@ class HomeView extends StatelessWidget {
                 ),
       floatingActionButton: FloatingActionButton(
         onPressed: () =>
-            homeProvider.fetchNews(), // Fetch data without setState
+            newsProvider.fetchNews(), // Fetch data without setState
         child: Icon(Icons.refresh),
       ),
     );

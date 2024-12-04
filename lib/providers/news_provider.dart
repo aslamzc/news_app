@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:news/controllers/home_controller.dart';
+import 'package:news/controllers/news_controller.dart';
 import 'package:news/models/news.dart';
 
 class NewsProvider with ChangeNotifier {
-  final HomeController _controller = HomeController();
+  final NewsController _controller = NewsController();
 
   List<News> _news = [];
   bool _isLoading = false;
