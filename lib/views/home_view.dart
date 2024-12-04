@@ -129,10 +129,6 @@ class HomeView extends StatelessWidget {
                     },
                   ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => newsProvider.fetchNews(),
-        child: Icon(Icons.refresh),
-      ),
     );
   }
 }
