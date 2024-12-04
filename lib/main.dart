@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news/providers/home_provider.dart';
+import 'package:news/providers/news_provider.dart';
 import 'package:news/providers/theme_provider.dart';
 import 'package:news/views/home_view.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +8,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => HomeProvider()),
+        ChangeNotifierProvider(create: (_) => NewsProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: const MyApp(),

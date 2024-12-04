@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news/controllers/home_controller.dart';
 import 'package:news/models/news.dart';
 
-class HomeProvider with ChangeNotifier {
+class NewsProvider with ChangeNotifier {
   final HomeController _controller = HomeController();
 
   List<News> _news = [];

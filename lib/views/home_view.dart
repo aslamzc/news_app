@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news/providers/home_provider.dart';
+import 'package:news/providers/news_provider.dart';
 import 'package:news/views/widgets/left_menu.dart';
 import 'package:provider/provider.dart';
 
@@ -7,7 +7,7 @@ class HomeView extends StatelessWidget {
   const HomeView({super.key});
   @override
   Widget build(BuildContext context) {
-    final homeProvider = Provider.of<HomeProvider>(context);
+    final homeProvider = Provider.of<NewsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -41,7 +41,7 @@ class HomeView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                 news.author,
+                                news.author,
                                 style: const TextStyle(
                                   fontSize: 24,
                                   fontFamily: 'Roboto',
