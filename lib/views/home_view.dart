@@ -166,9 +166,15 @@ class HomeView extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: DropdownButtonFormField<String>(
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: 'Category',
-                            prefixIcon: Icon(Icons.category),
+                            prefixIcon: const Icon(Icons.category),
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.clear),
+                              onPressed: () {
+                                newsProvider.setCategory(null);
+                              },
+                            ),
                           ),
                           value: newsProvider.category,
                           style: TextStyle(
