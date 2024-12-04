@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/providers/news_provider.dart';
+import 'package:news/providers/theme_provider.dart';
 import 'package:news/views/widgets/left_menu.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +10,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newsProvider = Provider.of<NewsProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -106,10 +108,9 @@ class HomeView extends StatelessWidget {
                                     child: Text(
                                       'View',
                                       style: TextStyle(
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.light
-                                            ? Colors.black
-                                            : Colors.white,
+                                        color: themeProvider.isDarkTheme
+                                            ? Colors.white
+                                            : Colors.black,
                                       ),
                                     ),
                                   ),
