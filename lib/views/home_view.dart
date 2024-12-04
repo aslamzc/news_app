@@ -231,6 +231,19 @@ class HomeView extends StatelessWidget {
                           ),
                         ),
                       ),
+                      Center(
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.close,
+                            color: themeProvider.isDarkTheme
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),
