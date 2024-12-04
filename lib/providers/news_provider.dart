@@ -44,7 +44,11 @@ class NewsProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      _news = await _controller.fetchNews();
+      _news = await _controller.fetchNews(
+        keyword: _keyword,
+        category: _category,
+        sortBy: _sortBy,
+      );
     } catch (e) {
       _error = e.toString();
     } finally {

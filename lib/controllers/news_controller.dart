@@ -4,9 +4,18 @@ import 'package:logger/logger.dart';
 
 class NewsController {
   final Logger _logger = Logger();
-  Future<List<News>> fetchNews() async {
+  Future<List<News>> fetchNews({
+    String? keyword,
+    String? category,
+    String? sortBy,
+  }) async {
     try {
-      final data = await ApiService.fetchNews();
+      final data = await ApiService.fetchNews(
+        keyword: keyword,
+        category: category,
+        sortBy: sortBy,
+      );
+
       return (data['articles'] as List)
           .map((article) => News.fromJson(article))
           .toList();

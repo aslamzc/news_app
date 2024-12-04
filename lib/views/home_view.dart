@@ -226,7 +226,10 @@ class HomeView extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            newsProvider.fetchNews();
+                            Navigator.of(context).pop();
+                          },
                           style: ElevatedButton.styleFrom(
                             side: BorderSide(
                               width: 1.0,
