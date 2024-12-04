@@ -206,11 +206,21 @@ class HomeView extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            side: const BorderSide(
+                            side: BorderSide(
                               width: 1.0,
+                              color: themeProvider.isDarkTheme
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
                           ),
-                          child: const Text('Filter'),
+                          child: Text(
+                            'Apply',
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                color: themeProvider.isDarkTheme
+                                    ? Colors.white
+                                    : Colors.black),
+                          ),
                         ),
                       ),
                     ],
