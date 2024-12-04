@@ -145,11 +145,9 @@ class HomeView extends StatelessWidget {
                     children: [
                       TextField(
                         controller: _controller,
-                        style: const TextStyle(color: Colors.white),
                         decoration: const InputDecoration(
                           labelText: 'Search',
-                          labelStyle: TextStyle(color: Colors.white),
-                          prefixIcon: Icon(Icons.search, color: Colors.white),
+                          prefixIcon: Icon(Icons.search),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -158,10 +156,9 @@ class HomeView extends StatelessWidget {
                         child: DropdownButtonFormField<String>(
                           decoration: const InputDecoration(
                             labelText: 'Category',
+                            prefixIcon: Icon(Icons.category),
                           ),
                           value: 'General',
-                          icon: const Icon(Icons.category),
-                          iconSize: 24,
                           style: TextStyle(
                               color: themeProvider.isDarkTheme
                                   ? Colors.white
@@ -176,15 +173,15 @@ class HomeView extends StatelessWidget {
                           }).toList(),
                         ),
                       ),
+                      const SizedBox(height: 16),
                       SizedBox(
                         width: double.infinity,
                         child: DropdownButtonFormField<String>(
                           decoration: const InputDecoration(
                             labelText: 'Sort By',
+                            prefixIcon: Icon(Icons.sort),
                           ),
                           value: 'Popularity',
-                          icon: const Icon(Icons.sort),
-                          iconSize: 24,
                           style: TextStyle(
                               color: themeProvider.isDarkTheme
                                   ? Colors.white
@@ -203,6 +200,7 @@ class HomeView extends StatelessWidget {
                           }).toList(),
                         ),
                       ),
+                      const SizedBox(height: 16),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
