@@ -170,7 +170,7 @@ class HomeView extends StatelessWidget {
                             labelText: 'Category',
                             prefixIcon: Icon(Icons.category),
                           ),
-                          value: 'general',
+                          value: newsProvider.category,
                           style: TextStyle(
                               color: themeProvider.isDarkTheme
                                   ? Colors.white
@@ -194,34 +194,34 @@ class HomeView extends StatelessWidget {
                           }).toList(),
                         ),
                       ),
-                      const SizedBox(height: 16),
-                      SizedBox(
-                        width: double.infinity,
-                        child: DropdownButtonFormField<String>(
-                          decoration: const InputDecoration(
-                            labelText: 'Sort By',
-                            prefixIcon: Icon(Icons.sort),
-                          ),
-                          value: 'popularity',
-                          style: TextStyle(
-                              color: themeProvider.isDarkTheme
-                                  ? Colors.white
-                                  : Colors.black),
-                          onChanged: (String? newValue) {
-                            newsProvider.setSortBy(newValue);
-                          },
-                          items: <String>[
-                            'popularity',
-                            'relevancy',
-                            'publishedAt',
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ),
+                      // const SizedBox(height: 16),
+                      // SizedBox(
+                      //   width: double.infinity,
+                      //   child: DropdownButtonFormField<String>(
+                      //     decoration: const InputDecoration(
+                      //       labelText: 'Sort By',
+                      //       prefixIcon: Icon(Icons.sort),
+                      //     ),
+                      //     value: 'popularity',
+                      //     style: TextStyle(
+                      //         color: themeProvider.isDarkTheme
+                      //             ? Colors.white
+                      //             : Colors.black),
+                      //     onChanged: (String? newValue) {
+                      //       newsProvider.setSortBy(newValue);
+                      //     },
+                      //     items: <String>[
+                      //       'popularity',
+                      //       'relevancy',
+                      //       'publishedAt',
+                      //     ].map<DropdownMenuItem<String>>((String value) {
+                      //       return DropdownMenuItem<String>(
+                      //         value: value,
+                      //         child: Text(value),
+                      //       );
+                      //     }).toList(),
+                      //   ),
+                      // ),
                       const SizedBox(height: 16),
                       SizedBox(
                         width: double.infinity,
