@@ -145,10 +145,14 @@ class HomeView extends StatelessWidget {
                     children: [
                       TextField(
                         controller: _controller,
+                        style: const TextStyle(color: Colors.white),
                         decoration: const InputDecoration(
                           labelText: 'Search',
+                          labelStyle: TextStyle(color: Colors.white),
+                          prefixIcon: Icon(Icons.search, color: Colors.white),
                         ),
                       ),
+                      const SizedBox(height: 16),
                       SizedBox(
                         width: double.infinity,
                         child: DropdownButtonFormField<String>(
