@@ -135,7 +135,8 @@ class HomeView extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder: (context) {
-              final TextEditingController _controller = TextEditingController();
+              final TextEditingController _controller =
+                  TextEditingController(text: newsProvider.keyword);
               return Padding(
                 padding: const EdgeInsets.all(16),
                 child: SizedBox(
@@ -153,6 +154,9 @@ class HomeView extends StatelessWidget {
                       const SizedBox(height: 8),
                       TextField(
                         controller: _controller,
+                        onChanged: (value) {
+                          newsProvider.setKeyword(value);
+                        },
                         decoration: const InputDecoration(
                           labelText: 'Search',
                           prefixIcon: Icon(Icons.search),
@@ -166,14 +170,23 @@ class HomeView extends StatelessWidget {
                             labelText: 'Category',
                             prefixIcon: Icon(Icons.category),
                           ),
-                          value: 'General',
+                          value: 'general',
                           style: TextStyle(
                               color: themeProvider.isDarkTheme
                                   ? Colors.white
                                   : Colors.black),
-                          onChanged: (String? newValue) {},
-                          items: <String>['Health', 'Sports', 'General']
-                              .map<DropdownMenuItem<String>>((String value) {
+                          onChanged: (String? newValue) {
+                            newsProvider.setCategory(newValue);
+                          },
+                          items: <String>[
+                            'general',
+                            'business',
+                            'entertainment',
+                            'health',
+                            'science',
+                            'sports',
+                            'technology'
+                          ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
@@ -189,17 +202,18 @@ class HomeView extends StatelessWidget {
                             labelText: 'Sort By',
                             prefixIcon: Icon(Icons.sort),
                           ),
-                          value: 'Popularity',
+                          value: 'popularity',
                           style: TextStyle(
                               color: themeProvider.isDarkTheme
                                   ? Colors.white
                                   : Colors.black),
-                          onChanged: (String? newValue) {},
+                          onChanged: (String? newValue) {
+                            newsProvider.setSortBy(newValue);
+                          },
                           items: <String>[
-                            'Health',
-                            'Sports',
-                            'General',
-                            'Popularity'
+                            'popularity',
+                            'relevancy',
+                            'publishedAt',
                           ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,

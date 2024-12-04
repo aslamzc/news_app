@@ -6,12 +6,37 @@ class NewsProvider with ChangeNotifier {
   final NewsController _controller = NewsController();
 
   List<News> _news = [];
-  bool _isLoading = false;
-  String? _error;
-
   List<News> get news => _news;
+
+  bool _isLoading = false;
   bool get isLoading => _isLoading;
+
+  String? _error;
   String? get error => _error;
+
+  String? _category;
+  String? get category => _category;
+
+  String? _sortBy;
+  String? get sortBy => _sortBy;
+
+  String? _keyword;
+  String? get keyword => _keyword;
+
+  void setKeyword(String? newKeyword) {
+    _keyword = newKeyword;
+    notifyListeners();
+  }
+
+  void setCategory(String? newCategory) {
+    _category = newCategory;
+    notifyListeners();
+  }
+
+  void setSortBy(String? newSortBy) {
+    _sortBy = newSortBy;
+    notifyListeners();
+  }
 
   Future<void> fetchNews({bool preventLoading = true}) async {
     _isLoading = preventLoading;
