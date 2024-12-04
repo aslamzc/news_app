@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news/providers/news_provider.dart';
 import 'package:news/views/widgets/left_menu.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -41,23 +42,28 @@ class HomeView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                news.author,
+                                news.title,
                                 style: const TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 18,
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Text(
-                                'Description $index',
+                                news.description,
+                                textAlign: TextAlign.justify,
                                 style: const TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 16,
+                                  fontFamily: 'Roboto',
                                 ),
                               ),
                               Text(
-                                'Published at ${DateTime.now().toString()}',
+                                DateFormat('dd MMM yyyy')
+                                    .format(news.publishedAt),
                                 style: const TextStyle(
                                   fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Roboto',
                                 ),
                               ),
                             ],
