@@ -27,7 +27,7 @@ class HomeView extends StatelessWidget {
       drawer: const LeftMenu(),
       body: RefreshIndicator(
         onRefresh: () async {
-          await newsProvider.fetchNews();
+          await newsProvider.fetchNews(preventLoading: false);
         },
         child: newsProvider.isLoading
             ? const Center(child: CircularProgressIndicator())

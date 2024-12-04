@@ -13,8 +13,8 @@ class NewsProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
 
-  Future<void> fetchNews() async {
-    _isLoading = true;
+  Future<void> fetchNews({bool preventLoading = true}) async {
+    _isLoading = preventLoading;
     _error = null;
     notifyListeners();
 
