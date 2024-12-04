@@ -12,7 +12,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'News',
+          'Top Headlines',
           style: TextStyle(
             fontSize: 24,
             fontFamily: 'Roboto',
@@ -37,7 +37,7 @@ class HomeView extends StatelessWidget {
                         margin: const EdgeInsets.all(0),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 16.0),
+                              horizontal: 16.0, vertical: 16.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -70,6 +70,7 @@ class HomeView extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+                              const SizedBox(height: 14),
                               Text(
                                 news.title,
                                 style: const TextStyle(
