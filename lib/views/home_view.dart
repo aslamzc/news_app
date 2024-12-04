@@ -205,6 +205,11 @@ class HomeView extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            side: const BorderSide(
+                              width: 1.0,
+                            ),
+                          ),
                           child: const Text('Filter'),
                         ),
                       ),
