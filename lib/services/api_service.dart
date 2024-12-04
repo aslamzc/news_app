@@ -9,7 +9,7 @@ class ApiService {
       'Authorization': 'Basic dad813f3c3214489b8b482c8dd6fe155',
     };
     final response = await http
-        .get(Uri.parse('$_baseUrl/v2/everything?q=bitcoin'), headers: headers);
+        .get(Uri.parse('$_baseUrl/v2/everything?q=tesla'), headers: headers);
 
     if (response.statusCode == 200) {
       return json.decode(response.body);
