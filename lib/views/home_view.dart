@@ -231,10 +231,11 @@ class HomeView extends StatelessWidget {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 16),
                       Center(
                         child: IconButton(
                           icon: Icon(
-                            Icons.close,
+                            Icons.close_rounded,
                             color: themeProvider.isDarkTheme
                                 ? Colors.white
                                 : Colors.black,
