@@ -157,9 +157,16 @@ class HomeView extends StatelessWidget {
                         onChanged: (value) {
                           newsProvider.setKeyword(value);
                         },
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           labelText: 'Search',
-                          prefixIcon: Icon(Icons.search),
+                          prefixIcon: const Icon(Icons.search),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.clear),
+                            onPressed: () {
+                              _controller.clear();
+                              newsProvider.setKeyword('');
+                            },
+                          ),
                         ),
                       ),
                       const SizedBox(height: 16),
