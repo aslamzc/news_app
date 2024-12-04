@@ -139,10 +139,18 @@ class HomeView extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.all(16),
                 child: SizedBox(
-                  height: 400,
+                  height: 450,
                   width: double.infinity,
                   child: Column(
                     children: [
+                      const Text(
+                        'Filter',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                        ),
+                      ),
+                      const SizedBox(height: 8),
                       TextField(
                         controller: _controller,
                         decoration: const InputDecoration(
