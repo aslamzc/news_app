@@ -70,31 +70,50 @@ class HomeView extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                              const SizedBox(height: 14),
+                              const SizedBox(height: 12),
                               Text(
                                 news.title,
                                 style: const TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 17,
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
+                              const SizedBox(height: 12),
                               Text(
                                 news.description,
                                 textAlign: TextAlign.justify,
                                 style: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 15,
                                   fontFamily: 'Roboto',
                                 ),
                               ),
-                              Text(
-                                DateFormat('dd MMM yyyy')
-                                    .format(news.publishedAt),
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Roboto',
-                                ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    DateFormat('dd MMM yyyy')
+                                        .format(news.publishedAt),
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Roboto',
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      'View',
+                                      style: TextStyle(
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.light
+                                            ? Colors.black
+                                            : Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
