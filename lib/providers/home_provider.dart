@@ -13,13 +13,13 @@ class HomeProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
 
-  Future<void> fetchUsers() async {
+  Future<void> fetchNews() async {
     _isLoading = true;
     _error = null;
     notifyListeners();
 
     try {
-      _news = await _controller.fetchUsers();
+      _news = await _controller.fetchNews();
     } catch (e) {
       _error = e.toString();
     } finally {

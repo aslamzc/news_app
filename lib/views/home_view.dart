@@ -69,7 +69,7 @@ class HomeView extends StatelessWidget {
                 ),
       floatingActionButton: FloatingActionButton(
         onPressed: () =>
-            homeProvider.fetchUsers(), // Fetch data without setState
+            homeProvider.fetchNews(), // Fetch data without setState
         child: Icon(Icons.refresh),
       ),
     );
