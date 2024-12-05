@@ -69,22 +69,22 @@ class NewsView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 12),
-                OutlinedButton(
+                OutlinedButton.icon(
                   onPressed: () async {
-                    // final newsProvider = Provider.of<NewsProvider>(context, listen: false);
-                    // await newsProvider.addNews(news);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('News saved for later'),
                       ),
                     );
                   },
-                  child: const Text('Save for later'),
+                  icon: const Icon(Icons.bookmark),
+                  label: const Text('Save for later'),
                 ),
                 const SizedBox(height: 12),
-                OutlinedButton(
+                OutlinedButton.icon(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Back'),
+                  icon: const Icon(Icons.arrow_back),
+                  label: const Text('Back'),
                 ),
               ],
             ),
