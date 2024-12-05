@@ -57,7 +57,7 @@ class NewsView extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Published At: ${DateFormat('dd-MM-yyyy').format(news.publishedAt)}",
+                  "Published At: ${DateFormat('dd-MM-yyyy').format(news.publishedAt!)}",
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -73,7 +73,7 @@ class NewsView extends StatelessWidget {
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
                   onPressed: () async {
-                    _newsRepository.addNews({
+                    await _newsRepository.addNews({
                       "title": news.title,
                       "description": news.description,
                       "content": news.content,

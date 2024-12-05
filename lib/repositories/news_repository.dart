@@ -1,3 +1,4 @@
+import 'package:news/models/news.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -45,9 +46,9 @@ class NewsRepository {
     return database;
   }
 
-  void addNews(Map<String, dynamic> news) async {
+  Future<int> addNews(Map<String, dynamic> news) async {
     final db = await database;
-    await db.insert(_newsTableName, {
+    final id = await db.insert(_newsTableName, {
       _newsTitleColumnName: news[_newsTitleColumnName],
       _newsDescriptionColumnName: news[_newsDescriptionColumnName],
       _newsContentColumnName: news[_newsContentColumnName],
@@ -56,6 +57,7 @@ class NewsRepository {
       _newsUrlToImageColumnName: news[_newsUrlToImageColumnName],
       _newsUpdatedDateColumnName: DateTime.now().toString(),
     });
+    return id;
   }
 
   // Future<int> deleteNote(int id) async {
@@ -64,20 +66,21 @@ class NewsRepository {
   //       where: '$_notesIdColumnName = ?', whereArgs: [id]);
   // }
 
-  // Future<List<Note>> getNotes() async {
-  //   final db = await database;
-  //   final data = await db.query(_notesTableName,
-  //       where: '$_notesStatusColumnName = 1',
-  //       orderBy: '$_notesUpdatedDateColumnName DESC');
-  //   List<Note> notes = data
-  //       .map((note) => Note(
-  //           id: note["id"] as int,
-  //           title: note["title"] as String,
-  //           content: note["content"] as String,
-  //           status: note["status"] as int,
-  //           updated_at: note["updated_at"] as String,
-  //           created_at: note["created_at"] as String))
-  //       .toList();
-  //   return notes;
-  // }
+  Future<List<News>> getSavedNews({String order = 'DESC'}) async {
+    final db = await database;
+    final data = await db.query(_newsTableName,
+        orderBy: '$_newsCreatedDateColumnName $order');
+    List<News> news = data
+        .map((val) => News(
+            id: val["id"] as int,
+            title: val["title"] as String,
+            description: val["description"] as String,
+            content: val["content"] as String,
+            author: val["author"] as String,
+            publishedAt: DateTime.parse(
+                (val["publishedAt"] ?? DateTime.now().toString()) as String),
+            urlToImage: val["urlToImage"] as String))
+        .toList();
+    return news;
+  }
 }

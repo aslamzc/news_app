@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news/providers/theme_provider.dart';
+import 'package:news/views/home_view.dart';
+import 'package:news/views/saved_view.dart';
 import 'package:provider/provider.dart';
 
 class LeftMenu extends StatelessWidget {
@@ -29,14 +31,21 @@ class LeftMenu extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        const ListTile(
-          leading: Icon(Icons.newspaper),
-          title: Text(
+        ListTile(
+          leading: const Icon(Icons.newspaper),
+          title: const Text(
             'Top Headlines',
             style: TextStyle(
               fontFamily: 'Roboto',
             ),
           ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const HomeView(),
+              ),
+            );
+          },
         ),
         const ListTile(
           leading: Icon(Icons.newspaper),
@@ -47,14 +56,21 @@ class LeftMenu extends StatelessWidget {
             ),
           ),
         ),
-        const ListTile(
-          leading: Icon(Icons.bookmark),
-          title: Text(
+        ListTile(
+          leading: const Icon(Icons.bookmark),
+          title: const Text(
             'Saved News',
             style: TextStyle(
               fontFamily: 'Roboto',
             ),
           ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const SavedView(),
+              ),
+            );
+          },
         ),
       ]),
     );

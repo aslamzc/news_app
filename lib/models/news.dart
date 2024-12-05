@@ -1,13 +1,15 @@
 class News {
+  final int id;
   final String title;
   final String description;
   final String content;
   final String author;
-  final DateTime publishedAt;
+  final DateTime? publishedAt;
   final String? urlToImage;
 
   News(
-      {required this.author,
+      {this.id = 0,
+      required this.author,
       required this.description,
       required this.content,
       required this.title,

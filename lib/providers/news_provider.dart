@@ -7,10 +7,14 @@ class NewsProvider with ChangeNotifier {
 
   NewsProvider() {
     fetchNews();
+    fetchSavedNews();
   }
 
   List<News> _news = [];
   List<News> get news => _news;
+
+  List<News> _savedNews = [];
+  List<News> get savedNews => _savedNews;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -59,5 +63,10 @@ class NewsProvider with ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  Future<void> fetchSavedNews() async {
+    _savedNews = await _controller.fetchSavedNews();
+    notifyListeners();
   }
 }

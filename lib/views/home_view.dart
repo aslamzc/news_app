@@ -102,7 +102,7 @@ class HomeView extends StatelessWidget {
                                   children: [
                                     Text(
                                       DateFormat('dd MMM yyyy')
-                                          .format(news.publishedAt),
+                                          .format(news.publishedAt!),
                                       style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
