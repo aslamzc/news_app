@@ -145,6 +145,9 @@ class SavedView extends StatelessWidget {
           onPressed: () async {
             await newsProvider.sortSavedNews();
           },
+          backgroundColor: themeProvider.isDarkTheme
+              ? const Color(0xFF212121)
+              : const Color(0xFFE5E5E5),
           child: const Icon(Icons.sort),
         ));
   }
