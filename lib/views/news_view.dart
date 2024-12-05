@@ -94,6 +94,15 @@ class NewsView extends StatelessWidget {
                   ),
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
+                  onPressed: () async {
+                    await _newsRepository.deleteNews(news.id);
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.delete),
+                  label: const Text('Delete'),
+                ),
+                const SizedBox(height: 12),
+                OutlinedButton.icon(
                   onPressed: () => Navigator.pop(context),
                   icon: const Icon(Icons.arrow_back),
                   label: const Text('Back'),

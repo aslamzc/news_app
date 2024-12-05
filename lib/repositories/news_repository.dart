@@ -60,11 +60,11 @@ class NewsRepository {
     return id;
   }
 
-  // Future<int> deleteNote(int id) async {
-  //   final db = await database;
-  //   return await db.delete(_notesTableName,
-  //       where: '$_notesIdColumnName = ?', whereArgs: [id]);
-  // }
+  Future<int> deleteNews(int id) async {
+    final db = await database;
+    return await db.delete(_newsTableName,
+        where: '$_newsIdColumnName = ?', whereArgs: [id]);
+  }
 
   Future<List<News>> getSavedNews({String order = 'DESC'}) async {
     final db = await database;
