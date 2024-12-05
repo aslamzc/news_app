@@ -5,6 +5,10 @@ import 'package:news/models/news.dart';
 class NewsProvider with ChangeNotifier {
   final NewsController _controller = NewsController();
 
+  NewsProvider() {
+    fetchNews();
+  }
+
   List<News> _news = [];
   List<News> get news => _news;
 
