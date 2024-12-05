@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:news/models/news.dart';
+import 'package:news/repositories/news_repository.dart';
 
 class NewsView extends StatelessWidget {
   final News news;
-  const NewsView({required this.news, super.key});
+  NewsView({required this.news, super.key});
+
+  final NewsRepository _newsRepository = NewsRepository.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +73,14 @@ class NewsView extends StatelessWidget {
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
                   onPressed: () async {
+                    _newsRepository.addNews({
+                      "title": news.title,
+                      "description": news.description,
+                      "content": news.content,
+                      "author": news.author,
+                      "published_at": news.publishedAt.toString(),
+                      "urlToImage": news.urlToImage,
+                    });
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('News saved for later'),
