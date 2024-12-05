@@ -174,6 +174,9 @@ class HomeView extends StatelessWidget {
                   ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: themeProvider.isDarkTheme
+            ? const Color(0xFF212121)
+            : const Color(0xFFE5E5E5),
         onPressed: () {
           showModalBottomSheet(
             context: context,
