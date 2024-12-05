@@ -30,12 +30,31 @@ class LeftMenu extends StatelessWidget {
           },
         ),
         const ListTile(
-          leading: Icon(Icons.home),
-          title: Text('Home'),
+          leading: Icon(Icons.newspaper),
+          title: Text(
+            'Top Headlines',
+            style: TextStyle(
+              fontFamily: 'Roboto',
+            ),
+          ),
         ),
         const ListTile(
-          leading: Icon(Icons.archive),
-          title: Text('Archive'),
+          leading: Icon(Icons.newspaper),
+          title: Text(
+            'All news',
+            style: TextStyle(
+              fontFamily: 'Roboto',
+            ),
+          ),
+        ),
+        const ListTile(
+          leading: Icon(Icons.bookmark),
+          title: Text(
+            'Saved News',
+            style: TextStyle(
+              fontFamily: 'Roboto',
+            ),
+          ),
         ),
       ]),
     );
