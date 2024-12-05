@@ -26,10 +26,11 @@ class NewsController {
     }
   }
 
-  Future<List<News>> fetchSavedNews() async {
+  Future<List<News>> fetchSavedNews({String order = 'DESC'}) async {
     try {
       final NewsRepository newsRepository = NewsRepository.instance;
-      final savedNews = await newsRepository.getSavedNews();
+      final savedNews =
+          await newsRepository.getSavedNews(order: order);
       return savedNews;
     } catch (e) {
       _logger.e(e);

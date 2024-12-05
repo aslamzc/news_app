@@ -16,6 +16,9 @@ class NewsProvider with ChangeNotifier {
   List<News> _savedNews = [];
   List<News> get savedNews => _savedNews;
 
+  String _order = 'DESC';
+  String get order => _order;
+
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
@@ -67,6 +70,12 @@ class NewsProvider with ChangeNotifier {
 
   Future<void> fetchSavedNews() async {
     _savedNews = await _controller.fetchSavedNews();
+    notifyListeners();
+  }
+
+  Future<void> sortSavedNews() async {
+    _order = _order == 'DESC' ? 'ASC' : 'DESC';
+    _savedNews = await _controller.fetchSavedNews(order: _order);
     notifyListeners();
   }
 }
