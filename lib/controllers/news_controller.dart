@@ -20,7 +20,7 @@ class NewsController {
           .map((article) => News.fromJson(article))
           .toList();
     } catch (e) {
-      _logger.e('Error fetching news: $e');
+      _logger.e(e);
       return [];
     }
   }
