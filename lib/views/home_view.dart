@@ -97,6 +97,7 @@ class HomeView extends StatelessWidget {
                                     fontFamily: 'Roboto',
                                   ),
                                 ),
+                                const SizedBox(height: 12),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -108,6 +109,32 @@ class HomeView extends StatelessWidget {
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'Roboto',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const Divider(),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => NewsView(
+                                                news: news,
+                                                deleteButton: false),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        'View',
+                                        style: TextStyle(
+                                          color: themeProvider.isDarkTheme
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
                                       ),
                                     ),
                                     IconButton(
@@ -135,26 +162,6 @@ class HomeView extends StatelessWidget {
                                           ),
                                         );
                                       },
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => NewsView(
-                                                news: news,
-                                                deleteButton: false),
-                                          ),
-                                        );
-                                      },
-                                      child: Text(
-                                        'View',
-                                        style: TextStyle(
-                                          color: themeProvider.isDarkTheme
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                      ),
                                     ),
                                   ],
                                 ),
