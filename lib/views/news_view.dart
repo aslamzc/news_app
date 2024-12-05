@@ -5,7 +5,8 @@ import 'package:news/repositories/news_repository.dart';
 
 class NewsView extends StatelessWidget {
   final News news;
-  NewsView({required this.news, super.key});
+  final bool savedButton;
+  NewsView({required this.news, this.savedButton = true, super.key});
 
   final NewsRepository _newsRepository = NewsRepository.instance;
 
@@ -70,26 +71,27 @@ class NewsView extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 12),
-                OutlinedButton.icon(
-                  onPressed: () async {
-                    await _newsRepository.addNews({
-                      "title": news.title,
-                      "description": news.description,
-                      "content": news.content,
-                      "author": news.author,
-                      "published_at": news.publishedAt.toString(),
-                      "urlToImage": news.urlToImage,
-                    });
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('News saved for later'),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.bookmark),
-                  label: const Text('Save for later'),
-                ),
+                if (savedButton) const SizedBox(height: 12),
+                if (savedButton)
+                  OutlinedButton.icon(
+                    onPressed: () async {
+                      await _newsRepository.addNews({
+                        "title": news.title,
+                        "description": news.description,
+                        "content": news.content,
+                        "author": news.author,
+                        "published_at": news.publishedAt.toString(),
+                        "urlToImage": news.urlToImage,
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('News saved for later'),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.bookmark),
+                    label: const Text('Save for later'),
+                  ),
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
                   onPressed: () => Navigator.pop(context),

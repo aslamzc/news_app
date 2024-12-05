@@ -115,6 +115,7 @@ class SavedView extends StatelessWidget {
                                           MaterialPageRoute(
                                             builder: (context) => NewsView(
                                               news: news,
+                                              savedButton: false,
                                             ),
                                           ),
                                         );
