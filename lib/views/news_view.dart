@@ -6,7 +6,12 @@ import 'package:news/repositories/news_repository.dart';
 class NewsView extends StatelessWidget {
   final News news;
   final bool savedButton;
-  NewsView({required this.news, this.savedButton = true, super.key});
+  final bool deleteButton;
+  NewsView(
+      {required this.news,
+      this.savedButton = true,
+      this.deleteButton = true,
+      super.key});
 
   final NewsRepository _newsRepository = NewsRepository.instance;
 
@@ -92,15 +97,16 @@ class NewsView extends StatelessWidget {
                     icon: const Icon(Icons.bookmark),
                     label: const Text('Save for later'),
                   ),
-                const SizedBox(height: 12),
-                OutlinedButton.icon(
-                  onPressed: () async {
-                    await _newsRepository.deleteNews(news.id);
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.delete),
-                  label: const Text('Delete'),
-                ),
+                if (deleteButton) const SizedBox(height: 12),
+                if (deleteButton)
+                  OutlinedButton.icon(
+                    onPressed: () async {
+                      await _newsRepository.deleteNews(news.id);
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.delete),
+                    label: const Text('Delete'),
+                  ),
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
                   onPressed: () => Navigator.pop(context),
