@@ -13,7 +13,7 @@ class NewsView extends StatelessWidget {
         title: Text(news.title),
       ),
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             if (news.urlToImage != null)
@@ -31,23 +31,22 @@ class NewsView extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 12),
-            // if (news.content != null)
-            Text(
-              news.content,
-              textAlign: TextAlign.justify,
-              style: const TextStyle(
-                fontSize: 15,
-                fontFamily: 'Roboto',
+            if (news.content != "") const SizedBox(height: 12),
+            if (news.content != "")
+              Text(
+                news.content,
+                textAlign: TextAlign.justify,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontFamily: 'Roboto',
+                ),
               ),
-            ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
                   "Author: ${news.author}",
-                  textAlign: TextAlign.justify,
                   style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
