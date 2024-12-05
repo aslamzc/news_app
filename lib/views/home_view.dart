@@ -115,8 +115,8 @@ class HomeView extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => NewsView(
-                                              news: news,
-                                            ),
+                                                news: news,
+                                                deleteButton: false),
                                           ),
                                         );
                                       },
