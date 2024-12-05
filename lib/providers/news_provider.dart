@@ -7,7 +7,6 @@ class NewsProvider with ChangeNotifier {
 
   NewsProvider() {
     fetchNews();
-    fetchSavedNews();
   }
 
   List<News> _news = [];
@@ -69,7 +68,7 @@ class NewsProvider with ChangeNotifier {
   }
 
   Future<void> fetchSavedNews() async {
-    _savedNews = await _controller.fetchSavedNews();
+    _savedNews = await _controller.fetchSavedNews(order: _order);
     notifyListeners();
   }
 

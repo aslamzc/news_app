@@ -12,6 +12,8 @@ class SavedView extends StatelessWidget {
   Widget build(BuildContext context) {
     final newsProvider = Provider.of<NewsProvider>(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
+
+    newsProvider.fetchSavedNews();
     return Scaffold(
         appBar: AppBar(
           title: const Text(
