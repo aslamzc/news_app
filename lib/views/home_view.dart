@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news/providers/news_provider.dart';
 import 'package:news/providers/theme_provider.dart';
+import 'package:news/views/news_view.dart';
 import 'package:news/views/widgets/left_menu.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -109,7 +110,16 @@ class HomeView extends StatelessWidget {
                                       ),
                                     ),
                                     TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => NewsView(
+                                              news: news,
+                                            ),
+                                          ),
+                                        );
+                                      },
                                       child: Text(
                                         'View',
                                         style: TextStyle(
