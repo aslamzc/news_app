@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiService {
   static const String _baseUrl = 'https://newsapi.org';
+  static final String _apiKey = dotenv.env['NEWS_API_KEY'] ?? '';
+
 
   static Future<Map<String, dynamic>> fetchNews({
     String? keyword,
@@ -10,7 +13,7 @@ class ApiService {
     String? sortBy,
   }) async {
     final headers = {
-      'Authorization': 'Basic dad813f3c3214489b8b482c8dd6fe155',
+      'Authorization': 'Basic $_apiKey',
     };
 
     final queryParameters = {
