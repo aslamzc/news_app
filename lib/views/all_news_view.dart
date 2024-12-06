@@ -14,6 +14,13 @@ class AllNewsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final newsProvider = Provider.of<NewsProvider>(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (newsProvider.keyword == null) {
+        _modalBottom(context, newsProvider, themeProvider);
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -210,131 +217,135 @@ class AllNewsView extends StatelessWidget {
             ? const Color(0xFF212121)
             : const Color(0xFFE5E5E5),
         onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            builder: (context) {
-              final TextEditingController _controller =
-                  TextEditingController(text: newsProvider.keyword);
-              return Consumer<NewsProvider>(
-                builder: (context, newsProvider, child) {
-                  return Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: SizedBox(
-                      height: 450,
-                      width: double.infinity,
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Filter',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          TextField(
-                            controller: _controller,
-                            onChanged: (value) {
-                              newsProvider.setKeyword(value);
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Search',
-                              prefixIcon: const Icon(Icons.search),
-                              suffixIcon: IconButton(
-                                icon: const Icon(Icons.clear),
-                                onPressed: () {
-                                  _controller.clear();
-                                  newsProvider.setKeyword('');
-                                },
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          SizedBox(
-                            width: double.infinity,
-                            child: DropdownButtonFormField<String>(
-                              decoration: InputDecoration(
-                                labelText: 'Sort By',
-                                prefixIcon: Icon(Icons.sort),
-                                suffixIcon: IconButton(
-                                  icon: const Icon(Icons.clear),
-                                  onPressed: () {
-                                    newsProvider.setCategory(null);
-                                  },
-                                ),
-                              ),
-                              value: newsProvider.sortBy,
-                              style: TextStyle(
-                                  color: themeProvider.isDarkTheme
-                                      ? Colors.white
-                                      : Colors.black),
-                              onChanged: (String? newValue) {
-                                newsProvider.setSortBy(newValue);
-                              },
-                              items: <String>[
-                                'popularity',
-                                'relevancy',
-                                'publishedAt',
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                newsProvider.fetchAllNews();
-                                Navigator.of(context).pop();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                side: BorderSide(
-                                  width: 1.0,
-                                  color: themeProvider.isDarkTheme
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                              ),
-                              child: Text(
-                                'Apply',
-                                style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    color: themeProvider.isDarkTheme
-                                        ? Colors.white
-                                        : Colors.black),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          Center(
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.close_rounded,
-                                color: themeProvider.isDarkTheme
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
-          );
+          _modalBottom(context, newsProvider, themeProvider);
         },
         child: const Icon(Icons.filter_list),
       ),
+    );
+  }
+
+  void _modalBottom(context, newsProvider, themeProvider) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        final TextEditingController _controller =
+            TextEditingController(text: newsProvider.keyword);
+        return Consumer<NewsProvider>(
+          builder: (context, newsProvider, child) {
+            return Padding(
+              padding: const EdgeInsets.all(16),
+              child: SizedBox(
+                height: 450,
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    const Text(
+                      'Filter',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Roboto',
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    TextField(
+                      controller: _controller,
+                      onChanged: (value) {
+                        newsProvider.setKeyword(value);
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Search*',
+                        prefixIcon: const Icon(Icons.search),
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () {
+                            _controller.clear();
+                            newsProvider.setKeyword('');
+                          },
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          labelText: 'Sort By',
+                          prefixIcon: Icon(Icons.sort),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.clear),
+                            onPressed: () {
+                              newsProvider.setCategory(null);
+                            },
+                          ),
+                        ),
+                        value: newsProvider.sortBy,
+                        style: TextStyle(
+                            color: themeProvider.isDarkTheme
+                                ? Colors.white
+                                : Colors.black),
+                        onChanged: (String? newValue) {
+                          newsProvider.setSortBy(newValue);
+                        },
+                        items: <String>[
+                          'popularity',
+                          'relevancy',
+                          'publishedAt',
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          newsProvider.fetchAllNews();
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          side: BorderSide(
+                            width: 1.0,
+                            color: themeProvider.isDarkTheme
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        ),
+                        child: Text(
+                          'Apply',
+                          style: TextStyle(
+                              fontFamily: 'Roboto',
+                              color: themeProvider.isDarkTheme
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Center(
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.close_rounded,
+                          color: themeProvider.isDarkTheme
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
