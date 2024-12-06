@@ -79,7 +79,7 @@ class NewsRepository {
             author: val["author"] as String,
             publishedAt: DateTime.parse(
                 (val["publishedAt"] ?? DateTime.now().toString()) as String),
-            urlToImage: val["urlToImage"] as String))
+            urlToImage: (val["urlToImage"] as String?)?.isNotEmpty == true ? val["urlToImage"] as String : null))
         .toList();
     return news;
   }
