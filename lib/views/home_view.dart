@@ -103,8 +103,7 @@ class HomeView extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      DateFormat('dd MMM yyyy')
-                                          .format(news.publishedAt!),
+                                      'Published At: ${DateFormat('dd MMM yyyy').format(news.publishedAt!)}',
                                       style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
