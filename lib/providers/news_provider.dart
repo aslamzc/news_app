@@ -12,6 +12,9 @@ class NewsProvider with ChangeNotifier {
   List<News> _news = [];
   List<News> get news => _news;
 
+  List<News> _allNews = [];
+  List<News> get allNews => _allNews;
+
   List<News> _savedNews = [];
   List<News> get savedNews => _savedNews;
 
@@ -55,6 +58,25 @@ class NewsProvider with ChangeNotifier {
 
     try {
       _news = await _controller.fetchNews(
+        keyword: _keyword,
+        category: _category,
+        sortBy: _sortBy,
+      );
+    } catch (e) {
+      _error = e.toString();
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+    Future<void> fetchAllNews({bool preventLoading = true}) async {
+    _isLoading = preventLoading;
+    _error = null;
+    notifyListeners();
+
+    try {
+      _allNews = await _controller.fetchAllNews(
         keyword: _keyword,
         category: _category,
         sortBy: _sortBy,

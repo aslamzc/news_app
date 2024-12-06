@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/providers/theme_provider.dart';
+import 'package:news/views/all_news_view.dart';
 import 'package:news/views/home_view.dart';
 import 'package:news/views/saved_view.dart';
 import 'package:provider/provider.dart';
@@ -47,14 +48,21 @@ class LeftMenu extends StatelessWidget {
             );
           },
         ),
-        const ListTile(
-          leading: Icon(Icons.newspaper),
-          title: Text(
-            'All news',
+        ListTile(
+          leading: const Icon(Icons.newspaper),
+          title: const Text(
+            'News Discovery',
             style: TextStyle(
               fontFamily: 'Roboto',
             ),
           ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AllNewsView(),
+              ),
+            );
+          },
         ),
         ListTile(
           leading: const Icon(Icons.bookmark),

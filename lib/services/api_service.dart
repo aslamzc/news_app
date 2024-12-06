@@ -6,7 +6,6 @@ class ApiService {
   static const String _baseUrl = 'https://newsapi.org';
   static final String _apiKey = dotenv.env['NEWS_API_KEY'] ?? '';
 
-
   static Future<Map<String, dynamic>> fetchNews({
     String? keyword,
     String? category,
@@ -24,6 +23,32 @@ class ApiService {
     };
 
     final uri = Uri.parse('$_baseUrl/v2/top-headlines')
+        .replace(queryParameters: queryParameters);
+
+    final response = await http.get(uri, headers: headers);
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception(json.decode(response.body)['message']);
+    }
+  }
+
+  static Future<Map<String, dynamic>> fetchAllNews({
+    String? keyword,
+    String? category,
+    String? sortBy,
+  }) async {
+    final headers = {
+      'Authorization': 'Basic $_apiKey',
+    };
+
+    final queryParameters = {
+      if (keyword != null) 'q': keyword,
+      if (sortBy != null) 'sortBy': sortBy,
+    };
+
+    final uri = Uri.parse('$_baseUrl/v2/everything')
         .replace(queryParameters: queryParameters);
 
     final response = await http.get(uri, headers: headers);

@@ -26,11 +26,31 @@ class NewsController {
     }
   }
 
+  Future<List<News>> fetchAllNews({
+    String? keyword,
+    String? category,
+    String? sortBy,
+  }) async {
+    try {
+      final data = await ApiService.fetchAllNews(
+        keyword: keyword,
+        category: category,
+        sortBy: sortBy,
+      );
+
+      return (data['articles'] as List)
+          .map((article) => News.fromJson(article))
+          .toList();
+    } catch (e) {
+      _logger.e(e);
+      return [];
+    }
+  }
+
   Future<List<News>> fetchSavedNews({String order = 'DESC'}) async {
     try {
       final NewsRepository newsRepository = NewsRepository.instance;
-      final savedNews =
-          await newsRepository.getSavedNews(order: order);
+      final savedNews = await newsRepository.getSavedNews(order: order);
       return savedNews;
     } catch (e) {
       _logger.e(e);
