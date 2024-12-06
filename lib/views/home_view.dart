@@ -118,32 +118,6 @@ class HomeView extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     TextButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => NewsView(
-                                                news: news,
-                                                deleteButton: false),
-                                          ),
-                                        );
-                                      },
-                                      child: Text(
-                                        'View',
-                                        style: TextStyle(
-                                          color: themeProvider.isDarkTheme
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.bookmark,
-                                        color: themeProvider.isDarkTheme
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
                                       onPressed: () async {
                                         await _newsRepository.addNews({
                                           "title": news.title,
@@ -162,6 +136,56 @@ class HomeView extends StatelessWidget {
                                           ),
                                         );
                                       },
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.bookmark,
+                                            color: themeProvider.isDarkTheme
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            'Save',
+                                            style: TextStyle(
+                                              color: themeProvider.isDarkTheme
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => NewsView(
+                                                news: news,
+                                                deleteButton: false),
+                                          ),
+                                        );
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.remove_red_eye,
+                                            color: themeProvider.isDarkTheme
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            'View',
+                                            style: TextStyle(
+                                              color: themeProvider.isDarkTheme
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
