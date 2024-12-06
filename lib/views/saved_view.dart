@@ -101,14 +101,22 @@ class SavedView extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        DateFormat('dd MMM yyyy')
-                                            .format(news.publishedAt!),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Roboto',
-                                        ),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.calendar_today,
+                                            size: 20,
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                            'Published At: ${DateFormat('dd MMM yyyy').format(news.publishedAt!)}',
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Roboto',
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       TextButton(
                                         onPressed: () {
@@ -122,13 +130,24 @@ class SavedView extends StatelessWidget {
                                             ),
                                           );
                                         },
-                                        child: Text(
-                                          'View',
-                                          style: TextStyle(
-                                            color: themeProvider.isDarkTheme
-                                                ? Colors.white
-                                                : Colors.black,
-                                          ),
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.visibility,
+                                              color: themeProvider.isDarkTheme
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                            const SizedBox(width: 4),
+                                            Text(
+                                              'View',
+                                              style: TextStyle(
+                                                color: themeProvider.isDarkTheme
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
