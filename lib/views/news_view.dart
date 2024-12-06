@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:news/models/news.dart';
+import 'package:news/providers/theme_provider.dart';
 import 'package:news/repositories/news_repository.dart';
+import 'package:provider/provider.dart';
 
 class NewsView extends StatelessWidget {
   final News news;
@@ -17,6 +19,7 @@ class NewsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(news.title),
@@ -79,6 +82,12 @@ class NewsView extends StatelessWidget {
                 if (savedButton) const SizedBox(height: 12),
                 if (savedButton)
                   OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(
+                          color: themeProvider.isDarkTheme
+                              ? Colors.white
+                              : Colors.black),
+                    ),
                     onPressed: () async {
                       await _newsRepository.addNews({
                         "title": news.title,
@@ -94,24 +103,57 @@ class NewsView extends StatelessWidget {
                         ),
                       );
                     },
-                    icon: const Icon(Icons.bookmark),
-                    label: const Text('Save for later'),
+                    icon: Icon(Icons.bookmark,
+                        color: themeProvider.isDarkTheme
+                            ? Colors.white
+                            : Colors.black),
+                    label: Text('Save for later',
+                        style: TextStyle(
+                            color: themeProvider.isDarkTheme
+                                ? Colors.white
+                                : Colors.black)),
                   ),
                 if (deleteButton) const SizedBox(height: 12),
                 if (deleteButton)
                   OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(
+                          color: themeProvider.isDarkTheme
+                              ? Colors.white
+                              : Colors.black),
+                    ),
                     onPressed: () async {
                       await _newsRepository.deleteNews(news.id);
                       Navigator.pop(context);
                     },
-                    icon: const Icon(Icons.delete),
-                    label: const Text('Delete'),
+                    icon: Icon(Icons.delete,
+                        color: themeProvider.isDarkTheme
+                            ? Colors.white
+                            : Colors.black),
+                    label: Text('Delete',
+                        style: TextStyle(
+                            color: themeProvider.isDarkTheme
+                                ? Colors.white
+                                : Colors.black)),
                   ),
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(
+                        color: themeProvider.isDarkTheme
+                            ? Colors.white
+                            : Colors.black),
+                  ),
                   onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.arrow_back),
-                  label: const Text('Back'),
+                  icon: Icon(Icons.arrow_back,
+                      color: themeProvider.isDarkTheme
+                          ? Colors.white
+                          : Colors.black),
+                  label: Text('Back',
+                      style: TextStyle(
+                          color: themeProvider.isDarkTheme
+                              ? Colors.white
+                              : Colors.black)),
                 ),
               ],
             ),
