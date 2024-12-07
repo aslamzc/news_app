@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/providers/news_provider.dart';
+import 'package:news/providers/saved_news_provider.dart';
 import 'package:news/providers/theme_provider.dart';
 import 'package:news/utils/locator.dart';
 import 'package:news/views/home_view.dart';
@@ -12,8 +13,9 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => NewsProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => NewsProvider()),
+        ChangeNotifierProvider(create: (_) => SavedNewsProvider()),
       ],
       child: const MyApp(),
     ),

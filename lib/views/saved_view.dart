@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news/providers/news_provider.dart';
+import 'package:news/providers/saved_news_provider.dart';
 import 'package:news/providers/theme_provider.dart';
 import 'package:news/views/news_view.dart';
 import 'package:news/views/widgets/left_menu.dart';
@@ -10,10 +10,12 @@ class SavedView extends StatelessWidget {
   const SavedView({super.key});
   @override
   Widget build(BuildContext context) {
-    final newsProvider = Provider.of<NewsProvider>(context);
+    final newsProvider = Provider.of<SavedNewsProvider>(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    newsProvider.fetchSavedNews();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      newsProvider.fetchSavedNews();
+    });
     return Scaffold(
         appBar: AppBar(
           title: const Text(
