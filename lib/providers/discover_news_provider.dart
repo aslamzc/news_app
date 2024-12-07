@@ -22,6 +22,10 @@ class DiscoverNewsProvider with ChangeNotifier {
   String? _keyword;
   String? get keyword => _keyword;
 
+  int _currentPage = 1;
+  bool _hasMore = true;
+  bool get hasMore => _hasMore;
+
   void setKeyword(String? newKeyword) {
     _keyword = newKeyword;
     notifyListeners();
@@ -32,15 +36,27 @@ class DiscoverNewsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void resetPagination() {
+    _currentPage = 1;
+    _hasMore = true;
+    _allNews = [];
+  }
+
   Future<void> fetchAllNews({bool preventLoading = true}) async {
+    if (_isLoading || !_hasMore) return;
     try {
       _isLoading = preventLoading;
       _error = null;
       notifyListeners();
-      _allNews = await _controller.fetchAllNews(
-        keyword: _keyword,
-        sortBy: _sortBy,
-      );
+      final List<News> fetchedNews = await _controller.fetchAllNews(
+          keyword: _keyword, sortBy: _sortBy, page: _currentPage);
+
+      if (fetchedNews.isEmpty) {
+        _hasMore = false;
+      } else {
+        _allNews.addAll(fetchedNews);
+        _currentPage++;
+      }
     } catch (e) {
       _logger.e(e);
       _error = e.toString();

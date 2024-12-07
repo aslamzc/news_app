@@ -27,213 +27,233 @@ class AllNewsView extends StatelessWidget {
         centerTitle: true,
       ),
       drawer: const LeftMenu(),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          await newsProvider.fetchAllNews(preventLoading: false);
-        },
-        child: newsProvider.isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : newsProvider.error != null
-                ? Center(child: Text('Error: ${newsProvider.error}'))
-                : newsProvider.allNews.isEmpty
-                    ? Center(
-                        child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.search,
-                            size: 100,
-                            color: themeProvider.isDarkTheme
-                                ? Colors.white
-                                : Colors.black,
-                          ),
-                          const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 16.0),
-                              child: Text(
-                                'Search through millions of articles from over 150,000 large and small news sources and blogs',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )),
-                        ],
-                      ))
-                    : ListView.builder(
-                        itemCount: newsProvider.allNews.length,
-                        itemBuilder: (context, index) {
-                          final news = newsProvider.allNews[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 8.0),
-                            child: Card(
-                              margin: const EdgeInsets.all(0),
-                              child: Padding(
+      body: NotificationListener<ScrollNotification>(
+          onNotification: (scrollNotification) {
+            if (scrollNotification is ScrollEndNotification &&
+                scrollNotification.metrics.pixels ==
+                    scrollNotification.metrics.maxScrollExtent) {
+              newsProvider.fetchAllNews(preventLoading: false);
+            }
+            return false;
+          },
+          child: RefreshIndicator(
+            onRefresh: () async {
+              newsProvider.resetPagination();
+              await newsProvider.fetchAllNews(preventLoading: false);
+            },
+            child: newsProvider.isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : newsProvider.error != null
+                    ? Center(child: Text('Error: ${newsProvider.error}'))
+                    : newsProvider.allNews.isEmpty
+                        ? Center(
+                            child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.search,
+                                size: 100,
+                                color: themeProvider.isDarkTheme
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                              const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20.0, vertical: 16.0),
+                                  child: Text(
+                                    'Search through millions of articles from over 150,000 large and small news sources and blogs',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )),
+                            ],
+                          ))
+                        : ListView.builder(
+                            itemCount: newsProvider.allNews.length,
+                            itemBuilder: (context, index) {
+                              final news = newsProvider.allNews[index];
+                              return Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    if (news.urlToImage != null)
-                                      Stack(
-                                        children: [
-                                          Image.network(
-                                            news.urlToImage!,
-                                            height: 200,
-                                            width: double.infinity,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          Positioned(
-                                            bottom: 0,
-                                            left: 0,
-                                            right: 0,
-                                            child: Container(
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                gradient: LinearGradient(
-                                                  begin: Alignment.topCenter,
-                                                  end: Alignment.bottomCenter,
-                                                  colors: [
-                                                    Colors.transparent,
-                                                    Colors.black
-                                                        .withOpacity(0.7),
-                                                  ],
+                                    horizontal: 20.0, vertical: 8.0),
+                                child: Card(
+                                  margin: const EdgeInsets.all(0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16.0, vertical: 16.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        if (news.urlToImage != null)
+                                          Stack(
+                                            children: [
+                                              Image.network(
+                                                news.urlToImage!,
+                                                height: 200,
+                                                width: double.infinity,
+                                                fit: BoxFit.cover,
+                                              ),
+                                              Positioned(
+                                                bottom: 0,
+                                                left: 0,
+                                                right: 0,
+                                                child: Container(
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    gradient: LinearGradient(
+                                                      begin:
+                                                          Alignment.topCenter,
+                                                      end: Alignment
+                                                          .bottomCenter,
+                                                      colors: [
+                                                        Colors.transparent,
+                                                        Colors.black
+                                                            .withOpacity(0.7),
+                                                      ],
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                    const SizedBox(height: 12),
-                                    Text(
-                                      news.title,
-                                      style: const TextStyle(
-                                        fontSize: 17,
-                                        fontFamily: 'Roboto',
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 12),
-                                    Text(
-                                      news.description,
-                                      textAlign: TextAlign.justify,
-                                      style: const TextStyle(
-                                        fontSize: 15,
-                                        fontFamily: 'Roboto',
-                                      ),
-                                    ),
-                                    const SizedBox(height: 12),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
+                                        const SizedBox(height: 12),
+                                        Text(
+                                          news.title,
+                                          style: const TextStyle(
+                                            fontSize: 17,
+                                            fontFamily: 'Roboto',
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 12),
+                                        Text(
+                                          news.description,
+                                          textAlign: TextAlign.justify,
+                                          style: const TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: 'Roboto',
+                                          ),
+                                        ),
+                                        const SizedBox(height: 12),
                                         Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const Icon(
-                                              Icons.calendar_today,
-                                              size: 20,
+                                            Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.calendar_today,
+                                                  size: 20,
+                                                ),
+                                                const SizedBox(width: 4),
+                                                Text(
+                                                  'Published At: ${DateFormat('dd MMM yyyy').format(news.publishedAt!)}',
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'Roboto',
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            const SizedBox(width: 4),
-                                            Text(
-                                              'Published At: ${DateFormat('dd MMM yyyy').format(news.publishedAt!)}',
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'Roboto',
+                                          ],
+                                        ),
+                                        const Divider(),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            TextButton(
+                                              onPressed: () async {
+                                                await _newsRepository.addNews({
+                                                  "title": news.title,
+                                                  "description":
+                                                      news.description,
+                                                  "content": news.content,
+                                                  "author": news.author,
+                                                  "published_at": news
+                                                      .publishedAt
+                                                      .toString(),
+                                                  "urlToImage": news.urlToImage,
+                                                });
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                    content: Text(
+                                                        'News saved for later'),
+                                                  ),
+                                                );
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.bookmark,
+                                                    color: themeProvider
+                                                            .isDarkTheme
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                  ),
+                                                  const SizedBox(width: 4),
+                                                  Text(
+                                                    'Save',
+                                                    style: TextStyle(
+                                                      color: themeProvider
+                                                              .isDarkTheme
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        NewsView(
+                                                            news: news,
+                                                            deleteButton:
+                                                                false),
+                                                  ),
+                                                );
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.remove_red_eye,
+                                                    color: themeProvider
+                                                            .isDarkTheme
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                                  ),
+                                                  const SizedBox(width: 4),
+                                                  Text(
+                                                    'View',
+                                                    style: TextStyle(
+                                                      color: themeProvider
+                                                              .isDarkTheme
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ],
                                         ),
                                       ],
                                     ),
-                                    const Divider(),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        TextButton(
-                                          onPressed: () async {
-                                            await _newsRepository.addNews({
-                                              "title": news.title,
-                                              "description": news.description,
-                                              "content": news.content,
-                                              "author": news.author,
-                                              "published_at":
-                                                  news.publishedAt.toString(),
-                                              "urlToImage": news.urlToImage,
-                                            });
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                content: Text(
-                                                    'News saved for later'),
-                                              ),
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.bookmark,
-                                                color: themeProvider.isDarkTheme
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ),
-                                              const SizedBox(width: 4),
-                                              Text(
-                                                'Save',
-                                                style: TextStyle(
-                                                  color:
-                                                      themeProvider.isDarkTheme
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => NewsView(
-                                                    news: news,
-                                                    deleteButton: false),
-                                              ),
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.remove_red_eye,
-                                                color: themeProvider.isDarkTheme
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ),
-                                              const SizedBox(width: 4),
-                                              Text(
-                                                'View',
-                                                style: TextStyle(
-                                                  color:
-                                                      themeProvider.isDarkTheme
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-      ),
+                              );
+                            },
+                          ),
+          )),
       floatingActionButton: FloatingActionButton(
         backgroundColor: themeProvider.isDarkTheme
             ? const Color(0xFF212121)
@@ -318,6 +338,7 @@ class AllNewsView extends StatelessWidget {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () {
+                                newsProvider.resetPagination();
                                 newsProvider.fetchAllNews();
                                 Navigator.of(context).pop();
                               },

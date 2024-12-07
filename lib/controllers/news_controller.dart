@@ -9,12 +9,14 @@ class NewsController {
     String? keyword,
     String? category,
     String? sortBy,
+    int page = 1,
   }) async {
     try {
       final data = await ApiService.fetchNews(
         keyword: keyword,
         category: category,
         sortBy: sortBy,
+        page: page,
       );
 
       return (data['articles'] as List)
@@ -30,12 +32,14 @@ class NewsController {
     String? keyword,
     String? category,
     String? sortBy,
+    int page = 1,
   }) async {
     try {
       final data = await ApiService.fetchAllNews(
         keyword: keyword,
         category: category,
         sortBy: sortBy,
+        page: page,
       );
 
       return (data['articles'] as List)

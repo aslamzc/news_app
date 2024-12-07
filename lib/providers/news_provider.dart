@@ -26,6 +26,10 @@ class NewsProvider with ChangeNotifier {
   String? _keyword;
   String? get keyword => _keyword;
 
+  int _currentPage = 1;
+  bool _hasMore = true;
+  bool get hasMore => _hasMore;
+
   void setKeyword(String? newKeyword) {
     _keyword = newKeyword;
     notifyListeners();
@@ -36,13 +40,27 @@ class NewsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void resetPagination() {
+    _currentPage = 1;
+    _hasMore = true;
+    _news = [];
+  }
+
   Future<void> fetchNews({bool preventLoading = true}) async {
+    if (_isLoading || !_hasMore) return;
     try {
       _isLoading = preventLoading;
       _error = null;
       notifyListeners();
-      _news =
-          await _controller.fetchNews(keyword: _keyword, category: _category);
+      final List<News> fetchedNews = await _controller.fetchNews(
+          keyword: _keyword, category: _category, page: _currentPage);
+
+      if (fetchedNews.isEmpty) {
+        _hasMore = false;
+      } else {
+        _news.addAll(fetchedNews);
+        _currentPage++;
+      }
     } catch (e) {
       _logger.e(e);
       _error = e.toString();

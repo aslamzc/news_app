@@ -10,6 +10,7 @@ class ApiService {
     String? keyword,
     String? category,
     String? sortBy,
+    int page = 1,
   }) async {
     final headers = {
       'Authorization': 'Basic $_apiKey',
@@ -20,6 +21,7 @@ class ApiService {
       if (category != null) 'category': category,
       if (keyword != null) 'q': keyword,
       if (sortBy != null) 'sortBy': sortBy,
+      'page': page.toString(),
     };
 
     final uri = Uri.parse('$_baseUrl/v2/top-headlines')
@@ -38,6 +40,7 @@ class ApiService {
     String? keyword,
     String? category,
     String? sortBy,
+    int page = 1,
   }) async {
     final headers = {
       'Authorization': 'Basic $_apiKey',
@@ -46,6 +49,7 @@ class ApiService {
     final queryParameters = {
       if (keyword != null) 'q': keyword,
       if (sortBy != null) 'sortBy': sortBy,
+      'page': page.toString(),
     };
 
     final uri = Uri.parse('$_baseUrl/v2/everything')
