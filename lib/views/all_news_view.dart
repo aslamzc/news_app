@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news/providers/news_provider.dart';
+import 'package:news/providers/discover_news_provider.dart';
 import 'package:news/providers/theme_provider.dart';
 import 'package:news/repositories/news_repository.dart';
 import 'package:news/views/news_view.dart';
@@ -12,7 +12,7 @@ class AllNewsView extends StatelessWidget {
   final NewsRepository _newsRepository = NewsRepository.instance;
   @override
   Widget build(BuildContext context) {
-    final newsProvider = Provider.of<NewsProvider>(context);
+    final newsProvider = Provider.of<DiscoverNewsProvider>(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
@@ -245,7 +245,7 @@ class AllNewsView extends StatelessWidget {
             builder: (context) {
               final TextEditingController _controller =
                   TextEditingController(text: newsProvider.keyword);
-              return Consumer<NewsProvider>(
+              return Consumer<DiscoverNewsProvider>(
                 builder: (context, newsProvider, child) {
                   return Padding(
                     padding: const EdgeInsets.all(16),
@@ -289,7 +289,7 @@ class AllNewsView extends StatelessWidget {
                                 suffixIcon: IconButton(
                                   icon: const Icon(Icons.clear),
                                   onPressed: () {
-                                    newsProvider.setCategory(null);
+                                    newsProvider.setSortBy(null);
                                   },
                                 ),
                               ),

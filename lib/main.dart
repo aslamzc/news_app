@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news/providers/discover_news_provider.dart';
 import 'package:news/providers/news_provider.dart';
 import 'package:news/providers/saved_news_provider.dart';
 import 'package:news/providers/theme_provider.dart';
@@ -16,6 +17,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => NewsProvider()),
         ChangeNotifierProvider(create: (_) => SavedNewsProvider()),
+        ChangeNotifierProvider(create: (_) => DiscoverNewsProvider()),
       ],
       child: const MyApp(),
     ),
