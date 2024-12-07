@@ -167,7 +167,8 @@ class SavedView extends StatelessWidget {
           backgroundColor: themeProvider.isDarkTheme
               ? const Color(0xFF212121)
               : const Color(0xFFE5E5E5),
-          child: const Icon(Icons.sort),
+          child: Icon(Icons.sort,
+              color: themeProvider.isDarkTheme ? Colors.white : Colors.black),
         ));
   }
 }
