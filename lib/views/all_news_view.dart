@@ -51,8 +51,14 @@ class AllNewsView extends StatelessWidget {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 16.0),
                               child: Text(
-                                  'Search through millions of articles from over 150,000 large and small news sources and blogs.',
-                                  textAlign: TextAlign.center)),
+                                'Search through millions of articles from over 150,000 large and small news sources and blogs.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
                         ],
                       ))
                     : ListView.builder(
