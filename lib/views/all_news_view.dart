@@ -255,9 +255,9 @@ class AllNewsView extends StatelessWidget {
                       child: Column(
                         children: [
                           const Text(
-                            'Filter',
+                            'Search News',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 18,
                               fontFamily: 'Roboto',
                             ),
                           ),
@@ -362,7 +362,8 @@ class AllNewsView extends StatelessWidget {
             },
           );
         },
-        child: const Icon(Icons.filter_list),
+        child: Icon(Icons.filter_list,
+            color: themeProvider.isDarkTheme ? Colors.white : Colors.black),
       ),
     );
   }

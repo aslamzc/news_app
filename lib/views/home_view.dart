@@ -228,7 +228,7 @@ class HomeView extends StatelessWidget {
                           const Text(
                             'Filter',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 18,
                               fontFamily: 'Roboto',
                             ),
                           ),
@@ -288,34 +288,6 @@ class HomeView extends StatelessWidget {
                               }).toList(),
                             ),
                           ),
-                          // const SizedBox(height: 16),
-                          // SizedBox(
-                          //   width: double.infinity,
-                          //   child: DropdownButtonFormField<String>(
-                          //     decoration: const InputDecoration(
-                          //       labelText: 'Sort By',
-                          //       prefixIcon: Icon(Icons.sort),
-                          //     ),
-                          //     value: 'popularity',
-                          //     style: TextStyle(
-                          //         color: themeProvider.isDarkTheme
-                          //             ? Colors.white
-                          //             : Colors.black),
-                          //     onChanged: (String? newValue) {
-                          //       newsProvider.setSortBy(newValue);
-                          //     },
-                          //     items: <String>[
-                          //       'popularity',
-                          //       'relevancy',
-                          //       'publishedAt',
-                          //     ].map<DropdownMenuItem<String>>((String value) {
-                          //       return DropdownMenuItem<String>(
-                          //         value: value,
-                          //         child: Text(value),
-                          //       );
-                          //     }).toList(),
-                          //   ),
-                          // ),
                           const SizedBox(height: 16),
                           SizedBox(
                             width: double.infinity,
@@ -365,7 +337,8 @@ class HomeView extends StatelessWidget {
             },
           );
         },
-        child: const Icon(Icons.filter_list),
+        child: Icon(Icons.filter_list,
+            color: themeProvider.isDarkTheme ? Colors.white : Colors.black),
       ),
     );
   }
